@@ -1,14 +1,7 @@
 package jdev.mentoria.lojavirtual.model;
 
-
-
-import org.springframework.security.core.GrantedAuthority;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.ConstraintMode;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
@@ -18,6 +11,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+
+import org.springframework.security.core.GrantedAuthority;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "acesso")
@@ -34,24 +31,7 @@ public class Acesso implements GrantedAuthority {
 	private String descricao; /* Acesso ex: ROLE_ADMIN ou ROLE_SECRETARIO */
 	
 	
-	@ManyToOne(targetEntity = Pessoa.class)
-	@JoinColumn(name = "empresa_id", nullable = false, 
-	foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_id_fk"))
-	private PessoaJuridica empresa = new PessoaJuridica();
-
-	@JsonIgnore
-	@Override
-	public String getAuthority() {
-		return this.descricao;
-	}
 	
-	public void setEmpresa(PessoaJuridica empresa) {
-		this.empresa = empresa;
-	}
-	
-	public PessoaJuridica getEmpresa() {
-		return empresa;
-	}
 	
 
 	public Long getId() {
@@ -93,6 +73,12 @@ public class Acesso implements GrantedAuthority {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String getAuthority() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
